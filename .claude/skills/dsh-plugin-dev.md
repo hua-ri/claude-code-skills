@@ -180,6 +180,7 @@ function registerTools(ctx) {
 - output 的 `additionalProperties` 必须显式写 `true` 或 `false`
 - output 的 `required` 不允许出现
 - 最安全的 output 写法：`{ type: 'object', properties: {}, additionalProperties: true }`
+- **parameters 中 `type: 'object'` 同样要求** `additionalProperties` 为布尔值，不能用 schema 对象如 `{ type: 'string' }`。写法：`{ type: 'object', properties: {}, additionalProperties: true }`
 
 **textOutput 辅助函数（统一文本输出格式）：**
 
@@ -609,7 +610,8 @@ npm publish --access public
 3. **ctx.effect() 的 dispose 必须释放资源** — 路由、锁、定时器都要清理
 4. **ESM 模块单例** — 进程级状态用模块级变量（一个进程只有一份）
 5. **defineTool parameters 格式** — 扁平 `{ key: { type, description } }`，不是 JSON Schema
-6. **defineTool output schema** — `additionalProperties` 必须显式写，`required` 不允许
+6. **defineTool output schema** — `additionalProperties` 必须显式写布尔值，`required` 不允许
+7. **defineTool parameters 中的 object** — `additionalProperties` 也必须是布尔值 `true`/`false`，不能用 `{ type: 'string' }` 等 schema 对象
 7. **必须用 defineTool 包裹** — 直接传 options 给 register 会让 parameters 变 null
 8. **profile 安装后必须重启 DSH** — bundles 列表只在启动时读
 9. **不要在 cordis.patch.yml 加 disabled: true** — 会导致插件页显示已启用但实际不加载
