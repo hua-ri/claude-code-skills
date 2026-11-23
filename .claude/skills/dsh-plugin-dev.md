@@ -621,6 +621,8 @@ npm publish --access public
 13. **npm 2FA** — 只有 Security Key 选项，自动发布用 Granular Access Token + Bypass 2FA
 14. **插件市场是 curated** — 必须向 awesome-dsh-plugin 提 PR，不是自动发现
 15. **peer deps 防御导入** — 每个可选依赖都用 try/catch 包裹，缺了只降级不崩
+16. **client.js 模块注册 ID 必须用完整包名** — `__ModuleLoader__.load({ id: "@scope/pkg-name" })` 而非裸名 `"pkg-name"`。DSH 按 npm 包名匹配 client 模块，ID 不一致会报 `duplicate factory` / `import failed`
+17. **发版验收必须覆盖前端** — 仅检查"运行中"会漏掉 client 加载失败。完整验收：后端启动 → 工具注册数量 → 侧栏入口出现 → 面板能打开并连接
 
 ## 19. 长文本 token 保护
 
